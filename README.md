@@ -1,5 +1,6 @@
-## Hi there 👋
+## FATE 2d6 Rol playing game
 
+A fork from FATE that uses 2d6 instead of 4df. 
 <!--
 **fate2d6/fate2d6** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
