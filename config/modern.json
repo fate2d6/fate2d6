@@ -1,0 +1,36 @@
+{
+  "system_name": "FATE2d6 Modern",
+  "attributes": {
+    "names": [
+      "Agilidad",
+      "Carisma",
+      "Fisico",
+      "Intelecto",
+      "Sabiduria"
+    ],
+    "value_distribution": [-1, 0, 1, 1, 2]
+  },
+  "skills": {
+    "names": [
+      "Atletismo",
+      "Conducir",
+      "Conocimientos[]",
+      "Contactos",
+      "Disparar",
+      "Empatia",
+      "Engañar",
+      "informática",
+      "Investigar",
+      "Luchar",
+      "Notar",
+      "Oficio[]",
+      "Persuadir",
+      "Poder",
+      "Protocolo",
+      "Provocar",
+      "Recursos",
+      "Sigilo"
+    ],
+    "value_distribution": [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2]
+  }
+}
