@@ -11,3 +11,6 @@ wheels/
 
 # Windows alternate data streams visible in WSL
 *:Zone.Identifier
+
+# MacOS
+.DS_Store
