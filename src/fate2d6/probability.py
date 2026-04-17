@@ -180,3 +180,38 @@ def probability_at_least(distribution: dict[float, float], threshold: float) -> 
         for result, probability in distribution.items()
         if result >= threshold
     )
+
+def shifted_two_d6_distribution(shift: int | float) -> dict[float, float]:
+    """
+    Desplaza la distribución de 2d6 por un valor dado.
+
+    Devuelve un diccionario {resultado_desplazado: probabilidad}.
+    """
+    base_probabilities = two_d6_probabilities()
+
+    return {
+        result + shift: probability
+        for result, probability in base_probabilities.items()
+    }
+
+
+def probability_at_least(
+    distribution: dict[int | float, float],
+    threshold: int | float,
+) -> float:
+    """
+    Calcula la probabilidad de obtener al menos un valor dado
+    en una distribución discreta.
+    """
+    return sum(
+        probability
+        for result, probability in distribution.items()
+        if result >= threshold
+    )
+
+
+def expected_shifted_two_d6(shift: int | float) -> float:
+    """
+    Calcula el valor esperado de 2d6 desplazado por un modificador dado.
+    """
+    return expected_two_d6() + shift
