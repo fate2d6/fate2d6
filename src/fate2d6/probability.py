@@ -85,3 +85,98 @@ def modifier_std(config: SystemConfig) -> float:
     Calcula la desviación típica de la distribución de modificadores.
     """
     return math.sqrt(modifier_variance(config))
+
+def two_d6_distribution() -> dict[int, int]:
+    """
+    Calcula la distribución exacta de frecuencias de 2d6.
+
+    Devuelve un diccionario {resultado: frecuencia}.
+    """
+    distribution: Counter[int] = Counter()
+
+    for die_1 in range(1, 7):
+        for die_2 in range(1, 7):
+            total = die_1 + die_2
+            distribution[total] += 1
+
+    return dict(sorted(distribution.items()))
+
+
+def two_d6_probabilities() -> dict[int, float]:
+    """
+    Calcula la distribución exacta de probabilidades de 2d6.
+
+    Devuelve un diccionario {resultado: probabilidad}.
+    """
+    distribution = two_d6_distribution()
+    total_combinations = sum(distribution.values())
+
+    return {
+        result: frequency / total_combinations
+        for result, frequency in distribution.items()
+    }
+
+
+def expected_two_d6() -> float:
+    """
+    Calcula el valor esperado de 2d6.
+    """
+    probabilities = two_d6_probabilities()
+
+    return sum(
+        result * probability
+        for result, probability in probabilities.items()
+    )
+
+
+def two_d6_mode() -> int:
+    """
+    Devuelve la moda de la distribución de 2d6.
+    """
+    distribution = two_d6_distribution()
+    return max(distribution, key=distribution.get)
+
+
+def two_d6_variance() -> float:
+    """
+    Calcula la varianza de la distribución de 2d6.
+    """
+    probabilities = two_d6_probabilities()
+    mean = expected_two_d6()
+
+    return sum(
+        probability * (result - mean) ** 2
+        for result, probability in probabilities.items()
+    )
+
+
+def two_d6_std() -> float:
+    """
+    Calcula la desviación típica de la distribución de 2d6.
+    """
+    return math.sqrt(two_d6_variance())
+
+def shifted_two_d6_distribution(shift: float) -> dict[float, float]:
+    """
+    Desplaza la distribución de 2d6 por un valor dado.
+
+    Devuelve un diccionario {resultado_desplazado: probabilidad}.
+    """
+    base_probabilities = two_d6_probabilities()
+
+    return {
+        result + shift: probability
+        for result, probability in base_probabilities.items()
+    }
+
+
+def probability_at_least(distribution: dict[float, float], threshold: float) -> float:
+    """
+    Calcula la probabilidad de obtener al menos un valor dado
+    en una distribución discreta.
+    """
+    return sum(
+        probability
+        for result, probability in distribution.items()
+        if result >= threshold
+    )
