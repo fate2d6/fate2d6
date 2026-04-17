@@ -44,17 +44,34 @@ def validate_config(
     if not system_name.strip():
         raise ValueError("system_name no puede estar vacío.")
 
+    # attributes
     if len(attribute_names) == 0:
         raise ValueError("Debe haber al menos un atributo.")
+    
+    if len(set(attribute_names)) != len(attribute_names):
+        raise ValueError("Hay nombres de atributos duplicados.")
 
-    if len(skill_names) == 0:
-        raise ValueError("Debe haber al menos una habilidad.")
-
+    if any(not name.strip() for name in attribute_names):
+        raise ValueError("Los nombres de atributos no pueden estar vacíos.")
+    
     if len(attribute_names) != len(attribute_value_distribution):
         raise ValueError(
             "El número de nombres de atributos debe coincidir con la longitud "
             "de attribute_value_distribution."
         )
+
+    if not all(isinstance(value, int) for value in attribute_value_distribution):
+        raise ValueError("Todos los valores de atributos deben ser enteros.")
+
+    # skills
+    if len(skill_names) == 0:
+        raise ValueError("Debe haber al menos una habilidad.")
+
+    if any(not name.strip() for name in skill_names):
+        raise ValueError("Los nombres de habilidades no pueden estar vacíos.")
+
+    if len(set(skill_names)) != len(skill_names):
+        raise ValueError("Hay nombres de habilidades duplicados.")
 
     if len(skill_names) != len(skill_value_distribution):
         raise ValueError(
@@ -62,8 +79,5 @@ def validate_config(
             "de skill_value_distribution."
         )
 
-    if len(set(attribute_names)) != len(attribute_names):
-        raise ValueError("Hay nombres de atributos duplicados.")
-
-    if len(set(skill_names)) != len(skill_names):
-        raise ValueError("Hay nombres de habilidades duplicados.")
+    if not all(isinstance(value, int) for value in skill_value_distribution):
+        raise ValueError("Todos los valores de habilidades deben ser enteros.")
