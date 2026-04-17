@@ -1,4 +1,5 @@
 from collections import Counter
+import math
 
 from fate2d6.models import SystemConfig
 
@@ -56,3 +57,31 @@ def expected_modifier(config: SystemConfig) -> float:
         modifier * probability
         for modifier, probability in probabilities.items()
     )
+
+
+def modifier_mode(config: SystemConfig) -> int:
+    """
+    Devuelve la moda de la distribución de modificadores.
+    """
+    distribution = modifier_distribution(config)
+    return max(distribution, key=distribution.get)
+
+
+def modifier_variance(config: SystemConfig) -> float:
+    """
+    Calcula la varianza de la distribución de modificadores.
+    """
+    probabilities = modifier_probabilities(config)
+    mean = expected_modifier(config)
+
+    return sum(
+        probability * (modifier - mean) ** 2
+        for modifier, probability in probabilities.items()
+    )
+
+
+def modifier_std(config: SystemConfig) -> float:
+    """
+    Calcula la desviación típica de la distribución de modificadores.
+    """
+    return math.sqrt(modifier_variance(config))
