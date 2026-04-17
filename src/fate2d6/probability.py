@@ -215,3 +215,14 @@ def expected_shifted_two_d6(shift: int | float) -> float:
     Calcula el valor esperado de 2d6 desplazado por un modificador dado.
     """
     return expected_two_d6() + shift
+
+def probability_with_reroll(p_success: float) -> float:
+    """
+    Calcula la probabilidad de éxito al permitir un reroll completo.
+
+    p_success: probabilidad de éxito en una tirada normal
+
+    Devuelve:
+    P(éxito en 1ª o en 2ª) = p + (1 - p)*p = 1 - (1 - p)^2
+    """
+    return 1 - (1 - p_success) ** 2
